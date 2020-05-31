@@ -1,3 +1,6 @@
+#' make a conditional power plot
+#' @param condPowerOut  Output of conditional power function
+#'
 plotCondPower <- function(condPowerOut=condPow) {
   # make a conditional power plot based on the output
   # of condPower

@@ -26,7 +26,12 @@ covidGen <- function(nCont=60, nExp=60, p0=0.571, p1=0.801) {
   return(TrialOut)
 }
 
-
+#' calculate conditional power
+#'
+#' @param tau information time of calculation (0 to 1)
+#' @param zz.interim value of Z statistic at interim
+#' @return prob.signif  probability of a significant result
+#' @return B.predict predicted B based on current trend
 condPower <- function(tau=0.5, zz.interim, alpha=0.025, power=0.8) {
   # zz.interim <- 2.243
   theta <- 1.96 + 0.8416    # E(Z) = z_alpha + z_beta
