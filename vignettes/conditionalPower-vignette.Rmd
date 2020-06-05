@@ -67,6 +67,7 @@ We may plot the predicted power, assuming that the original trend continues:
 plotCondPower(condPow2)
 ```
 
+The interim point is a blue filled circle. The predicted values of theta at the end of the study are indicated by a black tiangle, a blue square, and a blue diamond representing, respectively, the predicted values of theta at the end of the study for (a) the originally prediction, (b) the prediction under the current trend, and (c) the prediction under the assumed trend.
 
 ##References
 
