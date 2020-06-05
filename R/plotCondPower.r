@@ -14,6 +14,7 @@ plotCondPower <- function(condPowerOut=condPow) {
   B.tau=condPowerOut$B.tau
   theta=condPowerOut$theta
   B.predict=condPowerOut$B.predict
+  B.predict.origTrend <- B.tau/tau
 
   xx <- c(0,1)
   yy <- c(0, max(theta, B.predict))
@@ -21,6 +22,7 @@ plotCondPower <- function(condPowerOut=condPow) {
   segments(x0=0, y0=0, x1=1, y1=theta, lty=1)
   segments(x0=0, y0=0, x1=tau, y1=B.tau, col="blue")
   segments(x0=tau, y0=B.tau, x1=1, y1=B.predict, lty=2, col="blue")
+  segments(x0=tau, y0=B.tau, x1=1, y1=B.predict.origTrend, lty=3, col="green")
 
   points(x=1, y=theta, pch=16)
   points(x=tau, y=B.tau, pch=16, col="blue")

@@ -68,3 +68,8 @@ plotCondPower(condPow2)
 ```
 
 
+##References
+
+Lan, KKG and Wittes J (1988) The B-value: A tool for monitoring data. `Biometrics` 44, 579-585.
+
+Lachin JM (2005) A review of methods for futility stopping based on conditional power Stati`stics in Medicine` 24, 2747-2764.
