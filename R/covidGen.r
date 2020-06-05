@@ -8,7 +8,7 @@ interleave <- function(v1,v2)
   c(v1,v2)[order(c(ord1,ord2))]
 }
 
-interleave(1:5, 6:10)
+#interleave(1:5, 6:10)
 
 covidGen <- function(nCont=60, nExp=60, p0=0.571, p1=0.801) {
   # nCont:  number of control patients
