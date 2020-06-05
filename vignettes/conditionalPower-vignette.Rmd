@@ -40,11 +40,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-Conditional power is a tool that may used at an interim analysis  of a clinical trial to assess the likelihood of reaching a statistically significant outcome at the conclusion of the trial.
+Conditional power is a tool that may used at an interim analysis  of a clinical trial to assess the likelihood of reaching a statistically significant outcome at the conclusion of the trial. It may be used for a futility interim analysis to help investigators assess whether or not it will be productive to continue the trial. Such a procedure may have been planned, or it may be implemented in response to slow accrual. This package implements the Lan and Wittes(1988) B-Value monitoring tool. A B-value is a transformed Z-value that represents the realization of a Brownian motion process. It is simple to compute, and using it is simple to use to project potential outcomes of the trial.
 
-For example, suppose we are planning, at the final analysis, a one-sided 2.5 percent level test, which is powered at 85 percent. We conduct the interim analysis when 40 percent of the data (information) is available. Suppose at that point the Z-value from a test is 2.846. We can find the conditional power as follows:
+The function `condPower` computes, at any accrual point, the B-value and that point and also projects the power of the trial at completion under several different scenarios for the future of the trial. Suppose an interim analysis is done at time $\tau$, which represents the fraction of `information`, typically time, that has been accumulated, and that the full accrual number is $N$. If $n$ represents the number of patients accrued at that time and $Z_n$ the Z-statistic at that time, then (typically) we have $\tau = n/N$, and the B-value is given by
+
+$$ B_t = Z_n \cdot \sqrt t $$
+A key parameter is $\Delta$, the alternative hypothesis value of the mean observation $X$ that the trial is powered to detect. Another key parameter is $\Theta = E(Z) = \sqrt N \Delta = z_\alpha + z_\beta$. This is the "expected value" of the test statistic $Z$ at the end of the study. 
+
+For example, suppose we are planning, at the final analysis, a one-sided 2.5 percent level test, which is powered at 85 percent. We have $\Theta = 1.96 + 1.04 = 3.00. We conduct the interim analysis when 40 percent of the data (information) is available. Suppose at that point the Z-value from a test is 2.846. We can find the conditional power as follows:
 
 ```{r, echo=TRUE, eval=TRUE}
+library(conditionalpower)
 condPow2 <- condPower(tau=0.4, zz.interim=2.846, alpha=0.025, power=0.85)
 ```
 
@@ -53,6 +59,7 @@ The result is a data structure giving the conditional power and other parameters
 ```{r, echo=TRUE, eval=TRUE}
 condPow2
 ```
+The B-value at the interim time is 1.80. The predicted value of the B-value at the end of the study, assuming that the originally hypothesized trend continues, is 3.598.
 
 We may plot the predicted power, assuming that the original trend continues:
 

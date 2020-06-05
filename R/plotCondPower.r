@@ -17,7 +17,7 @@ plotCondPower <- function(condPowerOut=condPow) {
 
   xx <- c(0,1)
   yy <- c(0, max(theta, B.predict))
-  plot(yy ~ xx, xlab="tau", ylab="Conditional power", type="n", axes=F)
+  plot(yy ~ xx, xlab="tau", ylab="Theta", type="n", axes=F)
   segments(x0=0, y0=0, x1=1, y1=theta, lty=1)
   segments(x0=0, y0=0, x1=tau, y1=B.tau, col="blue")
   segments(x0=tau, y0=B.tau, x1=1, y1=B.predict, lty=2, col="blue")
