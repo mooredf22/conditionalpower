@@ -13,13 +13,6 @@ vignette: >
 #  %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
- # collapse = TRUE,
-  comment = ""
-)
-```
-
 
 ```{r setup, include = FALSE}
 library(conditionalpower)
@@ -41,6 +34,20 @@ knitr::opts_chunk$set(
 ```
 
 Conditional power is a tool that may used at an interim analysis  of a clinical trial to assess the likelihood of reaching a statistically significant outcome at the conclusion of the trial. It may be used for a futility interim analysis to help investigators assess whether or not it will be productive to continue the trial. Such a procedure may have been planned, or it may be implemented in response to slow accrual. This package implements the Lan and Wittes(1988) B-Value monitoring tool. A B-value is a transformed Z-value that represents the realization of a Brownian motion process. It is simple to compute, and using it is simple to use to project potential outcomes of the trial.
+
+## Installing the conditionalpower package
+Start by installing the devtools package from CRAN, by typing
+
+```
+install.packages("devtools")
+```
+
+Then install the conditionalpower package from the github repository by typing
+
+```
+devtools::install_github("mooredf22/conditionalpower")
+```
+## Conditional power background
 
 The function `condPower` computes, at any accrual point, the B-value and that point and also projects the power of the trial at completion under several different scenarios for the future of the trial. Suppose an interim analysis is done at time $\tau$, which represents the fraction of `information`, typically time, that has been accumulated, and that the full accrual number is $N$. If $n$ represents the number of patients accrued at that time and $Z_n$ the Z-statistic at that time, then (typically) we have $\tau = n/N$, and the B-value is given by
 
@@ -67,10 +74,45 @@ We may plot the predicted power, assuming that the original trend continues:
 plotCondPower(condPow2)
 ```
 
-The interim point is a blue filled circle. The predicted values of theta at the end of the study are indicated by a black tiangle, a blue square, and a blue diamond representing, respectively, the predicted values of theta at the end of the study for (a) the originally prediction, (b) the prediction under the current trend, and (c) the prediction under the assumed trend.
+The interim point is a blue filled circle. The predicted values of theta at the end of the study are indicated by a black tiangle, a blue square, and a blue diamond representing, respectively, the predicted values of theta at the end of the study for (a) the original prediction, (b) the prediction under the current trend, and (c) the prediction under the assumed trend.
 
-##References
+## Covid trial simulation
+
+Here we simulate a clinical trial comparing two arms.
+
+```{r, echo=TRUE, eval=TRUE}
+set.seed(58013)
+TrialOut <- covidGen(nCont=60, nExp=60, p0=0.571, p1=0.801)
+```
+
+Next, fit a logistic regression model to the interim data, after 60 patients have been accrued.
+
+```{r, echo=TRUE, eval=TRUE}
+interim.result <- glm(Outcome ~ Arm, family=binomial, 
+                      data=TrialOut[1:60,])
+  interim.summ <- summary(interim.result)
+  coef.interim <- interim.summ$coefficients
+  zz.interim <- coef.interim[2,3]
+  coef.interim
+  zz.interim
+```
+
+We see that the Z value at interim is 1.416.
+```{r, echo=TRUE, eval=TRUE}
+  condPow.out <- condPower(tau=0.5, zz.interim=zz.interim )
+  condPow.out
+```
+
+We see that the Z-value at the 50 percent accrual time is 0.7387.
+
+
+```{r, echo=TRUE, eval=TRUE, fig.show='hold', fig.width = 7, fig.height =5}
+plotCondPower(condPow.out)
+```
+
+The predicted B-value at the end of the trial is 
+## References
 
 Lan, KKG and Wittes J (1988) The B-value: A tool for monitoring data. `Biometrics` 44, 579-585.
 
-Lachin JM (2005) A review of methods for futility stopping based on conditional power Stati`stics in Medicine` 24, 2747-2764.
+Lachin JM (2005) A review of methods for futility stopping based on conditional power `Statistics in Medicine` 24, 2747-2764.
