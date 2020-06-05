@@ -1,0 +1,63 @@
+---
+title: "Using the conditionalPower package to estimate, at interim analysis, the probability of a successful outcome of a clinical trial"
+author: "Dirk Moore"
+date: "`r Sys.Date()`"
+
+output: rmarkdown::html_vignette
+#output: word_document:
+#  fig_caption: true
+#  toc: true
+vignette: >
+  %\VignetteIndexEntry{conditionalPower-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+#  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+ # collapse = TRUE,
+  comment = ""
+)
+```
+
+
+```{r setup, include = FALSE}
+library(conditionalpower)
+
+knitr::opts_chunk$set(
+  #collapse = TRUE,
+  comment = "",
+  fig.width = 4,
+  fig.height = 4,
+	message = FALSE,
+	warning = FALSE,
+	tidy.opts = list(
+		keep.blank.line = TRUE,
+		width.cutoff = 150
+		),
+	options(width = 150),
+	eval = TRUE
+)
+```
+
+Conditional power is a tool that may used at an interim analysis  of a clinical trial to assess the likelihood of reaching a statistically significant outcome at the conclusion of the trial.
+
+For example, suppose we are planning, at the final analysis, a one-sided 2.5 percent level test, which is powered at 85 percent. We conduct the interim analysis when 40 percent of the data (information) is available. Suppose at that point the Z-value from a test is 2.846. We can find the conditional power as follows:
+
+```{r, echo=TRUE, eval=TRUE}
+condPow2 <- condPower(tau=0.4, zz.interim=2.846, alpha=0.025, power=0.85)
+```
+
+The result is a data structure giving the conditional power and other parameters:
+
+```{r, echo=TRUE, eval=TRUE}
+condPow2
+```
+
+We may plot the predicted power, assuming that the original trend continues:
+
+```{r, echo=TRUE, eval=TRUE, fig.show='hold', fig.width = 7, fig.height =5}
+plotCondPower(condPow2)
+```
+
+
