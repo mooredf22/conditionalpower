@@ -51,10 +51,10 @@ devtools::install_github("mooredf22/conditionalpower")
 
 The function `condPower` computes, at any accrual point, the B-value and that point and also projects the power of the trial at completion under several different scenarios for the future of the trial. Suppose an interim analysis is done at time $\tau$, which represents the fraction of `information`, typically time, that has been accumulated, and that the full accrual number is $N$. If $n$ represents the number of patients accrued at that time and $Z_n$ the Z-statistic at that time, then (typically) we have $\tau = n/N$, and the B-value is given by
 
-$$ B_t = Z_n \cdot \sqrt t $$
+$$ B_n = Z_n \cdot \sqrt t $$
 A key parameter is $\Delta$, the alternative hypothesis value of the mean observation $X$ that the trial is powered to detect. Another key parameter is $\Theta = E(Z) = \sqrt N \Delta = z_\alpha + z_\beta$. This is the "expected value" of the test statistic $Z$ at the end of the study. 
 
-For example, suppose we are planning, at the final analysis, a one-sided 2.5 percent level test, which is powered at 85 percent. We have $\Theta = 1.96 + 1.04 = 3.00. We conduct the interim analysis when 40 percent of the data (information) is available. Suppose at that point the Z-value from a test is 2.846. We can find the conditional power as follows:
+For example, suppose we are planning, at the final analysis, a one-sided 2.5 percent level test, which is powered at 85 percent. We have $\Theta = 1.96 + 1.04 = 3.00$. We conduct the interim analysis when 40 percent of the data (information) is available. Suppose at that point the Z-value from a test is 2.846. We can find the conditional power as follows:
 
 ```{r, echo=TRUE, eval=TRUE}
 library(conditionalpower)
@@ -74,7 +74,7 @@ We may plot the predicted power, assuming that the original trend continues:
 plotCondPower(condPow2)
 ```
 
-The interim point is a blue filled circle. The predicted values of theta at the end of the study are indicated by a black tiangle, a blue square, and a blue diamond representing, respectively, the predicted values of theta at the end of the study for (a) the original prediction, (b) the prediction under the current trend, and (c) the prediction under the assumed trend.
+The interim point is a blue filled circle. The predicted values of theta at the end of the study are indicated by a black tiangle, a blue diamond, and a blue square representing, respectively, the predicted values of theta at the end of the study for (a) the original prediction, (b) the prediction under the current trend, and (c) the prediction under the assumed trend.
 
 ## Covid trial simulation
 
@@ -110,7 +110,9 @@ We see that the Z-value at the 50 percent accrual time is 0.7387.
 plotCondPower(condPow.out)
 ```
 
-The predicted B-value at the end of the trial is 
+The predicted B-value at the end of the study, assuming the originally hypothesized trend, is 2.802. Assuming the current trend continues, it would be 2.402.
+
+
 ## References
 
 Lan, KKG and Wittes J (1988) The B-value: A tool for monitoring data. `Biometrics` 44, 579-585.
