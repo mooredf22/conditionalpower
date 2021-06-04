@@ -4,7 +4,7 @@ author: "Dirk Moore"
 date: "`r Sys.Date()`"
 
 output: rmarkdown::html_vignette
-#output: word_document:
+#output: word_document
 #  fig_caption: true
 #  toc: true
 vignette: >
