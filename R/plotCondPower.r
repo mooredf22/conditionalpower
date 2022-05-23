@@ -4,7 +4,7 @@
 plotCondPower <- function(condPowerOut=condPow) {
   # make a conditional power plot based on the output
   # of condPower
-  # just a test
+
 
   oldpar <- par(no.readonly=TRUE)
   on.exit(par(oldpar))
